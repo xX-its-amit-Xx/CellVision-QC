@@ -1,0 +1,87 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cellvision-qc"
+version = "0.1.0"
+description = "Fluorescence microscopy image quality control, segmentation comparison, and phenotype featurization"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Amit Shenoy", email = "shenoy.am@husky.neu.edu" }]
+keywords = [
+    "microscopy",
+    "image-analysis",
+    "segmentation",
+    "quality-control",
+    "bioimaging",
+    "computational-biology",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Image Processing",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scipy>=1.11",
+    "scikit-image>=0.21",
+    "scikit-learn>=1.3",
+    "matplotlib>=3.7",
+    "seaborn>=0.12",
+    "tifffile>=2023.1",
+    "click>=8.1",
+    "pydantic>=2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "ruff>=0.1",
+    "mypy>=1.5",
+    "ipykernel>=6.25",
+    "nbformat>=5.9",
+]
+
+[project.scripts]
+cellvision-qc = "cellvision_qc.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/ashenoy/CellVision-QC"
+"Bug Tracker" = "https://github.com/ashenoy/CellVision-QC/issues"
+Documentation = "https://github.com/ashenoy/CellVision-QC#readme"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+cellvision_qc = ["py.typed"]
+
+[tool.ruff]
+src = ["src"]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.9"
+strict = false
+ignore_missing_imports = true
+warn_return_any = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--tb=short -q"
